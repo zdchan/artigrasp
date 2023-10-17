@@ -37,6 +37,8 @@ We provide some pre-trained models to view the output of our method. They are st
   raisimUnity/linux/raisimUnity.x86_64
   ```
 
+  and check the Auto-connect option.
+
 + To randomly choose an object and visualize the generated sequences, run
 
   ```Shell
