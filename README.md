@@ -97,11 +97,11 @@ To cite us, please use the following:
 
 ```
 @inProceedings{zhang2024artigrasp,
-      title={ArtiGrasp: Physically Plausible Synthesis of Bi-Manual Dexterous Grasping and Articulation}, 
-      author={Hui Zhang and Sammy Christen and Zicong Fan and Luocheng Zheng and Jemin Hwangbo and Jie Song and Otmar Hilliges},
-      booktitle={International Conference on 3D Vision (3DV)},
-      year={2024}
-    }
+  title={{ArtiGrasp}: Physically Plausible Synthesis of Bi-Manual Dexterous Grasping and Articulation},
+  author={Zhang, Hui and Christen, Sammy, and Fan, Zicong and Zheng, Luocheng and Hwangbo, Jemin and Song, Jie, and Hilliges, Otmar},
+  booktitle={International Conference on 3D Vision (3DV)},
+  year={2024}
+}
 ```
 
 ## License
