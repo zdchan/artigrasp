@@ -26,7 +26,6 @@ examples/cmake-build*/*
 data/*
 **/.DS_Store
 *.stl
-*.xml
 raisimGymTorch/raisimGymTorch/env/bin/
 
 *.png
