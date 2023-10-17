@@ -1,0 +1,118 @@
+seed: 1
+record_video: yes
+
+environment:
+  render: True
+  num_envs: 21
+  num_repeats: 1
+  eval_every_n: 50
+  update_every_n: 20
+  num_threads: 32
+  simulation_dt: 0.0025
+  control_dt: 0.01
+  max_time: 4.0
+  root_guided: True
+  root_guided_r: True
+  testing: False
+  cylinder_mesh: False
+  box_mesh: False
+  no_pose_state: False
+  nohierarchy: False
+  prior: False
+  obj: "024_bowl"
+  hand_model_r: "rhand_mano.urdf"
+  hand_model_l: "lhand_mano.urdf"
+  weight: 0.1
+  finger_action_std: 0.015
+  rot_action_std: 0.01
+  stage_dim_x: 0.1
+  stage_dim_y: 0.1
+  stage_dim_z: 0.1
+  stage_pos_x: 0.75
+  stage_pos_y: 0.0
+  stage_pos_z: 0.551
+  reward:
+#    pos_reward:  # distance to goal !!!
+#      coeff: 2.0
+#    pose_reward:  # distance to goal  !!!
+#      coeff: 0.1
+#    contact_reward:
+#      coeff: 1.0
+#    impulse_reward:
+#      coeff: 1.0
+#
+#
+#    body_vel_reward_:
+#      coeff: -0.1
+#    body_qvel_reward_:
+#      coeff: -0.1
+#
+#    rel_obj_vel_reward_: # object velocity in wrist frame !!!
+#      coeff: -0.1
+#
+#    obj_angle_reward_:
+#      coeff: 1.0
+#    obj_avel_reward_:
+#      coeff: 0.0
+#
+#    obj_vel_reward_:    # bottom
+#      coeff: -0.3
+#    obj_qvel_reward_:
+#      coeff: -0.3
+#
+#    torque:
+#      coeff: -0.0
+    pos_reward:
+      coeff: 3.0
+    pose_reward:
+      coeff: 0.2
+
+    contact_reward:
+      coeff: 1.5
+    impulse_reward:
+      coeff: 1.5
+
+    obj_angle_reward_:
+      coeff: 1.5
+    obj_pos_reward_: # distance to initial position !!!
+      coeff: 0.2
+    rel_obj_vel_reward_: # object velocity in wrist frame
+      coeff: -0.5
+
+    torque:
+      coeff: -0.0
+    body_vel_reward_:
+      coeff: -0.5
+    body_qvel_reward_:
+      coeff: -0.2
+    obj_avel_reward_: # angular vel of the joint
+      coeff: -0.2
+    obj_vel_reward_:
+      coeff: -0.2
+    obj_qvel_reward_:
+      coeff: -0.2
+
+
+#    obj_pos_w_reward:
+#      coeff: 0.0
+#    obj_pose_w_reward:
+#      coeff: 0.0
+#    obj_pos_h_reward:
+#      coeff: 0.0
+#    obj_pose_h_reward:
+#      coeff: 0.0
+
+#    # no use
+
+#    obj_pose_reward_:
+#      coeff: 0.0
+#    rel_obj_pos_reward_:
+#      coeff: -0.0
+
+architecture:
+  policy_net: [128,128]
+  value_net: [128, 128]
+
+  policy_net_trail: [128, 128]
+  value_net_trail: [128, 128]
+  wrist_dim: 6

@@ -21,7 +21,6 @@ examples/cmake-build*/*
 */data_grasptta/*
 */data_v5/*
 */grasp_tta/*
-*/data*
 */meshes*
 **/activation.raisim
 data/*
@@ -35,7 +34,5 @@ raisimGymTorch/raisimGymTorch/env/bin/
 *.zip
 
 *.pkl
-
-*.csv
 
 *.jpg
