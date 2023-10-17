@@ -2,7 +2,7 @@
 
 ## [Paper](https://arxiv.org/pdf/2309.03891.pdf) | [Project Page](https://eth-ait.github.io/artigrasp/)
 
-![teaser](./teaser.jpg) 
+<img src="docs/image/teaser.jpg" /> 
 
 ### Contents
 
