@@ -18,8 +18,8 @@ import random
 data_version = "chiral_220223"
 
 
-weight_path_articulate_l = '/../left_fixed/2023-05-04-16-51-56/full_6600_l.pt'
-weight_path_articulate_r = '/../multi_obj_arti/2023-05-04-16-43-43/full_4300_r.pt'
+weight_path_articulate_l = '2023-05-15-10-18-54/full_350_l.pt'
+weight_path_articulate_r = '2023-05-15-10-18-54/full_350_r.pt'
 
 exp_name = "general_two"
 
@@ -202,6 +202,9 @@ ppo_r = PPO.PPO(actor=actor_r,
                 log_dir=saver.data_dir,
                 shuffle_batch=False
                 )
+
+load_param(saver.data_dir.split('eval')[0] + weight_path_articulate_l, env, actor_l, critic_l, ppo_l.optimizer, saver.data_dir, cfg_grasp)
+load_param(saver.data_dir.split('eval')[0] + weight_path_articulate_r, env, actor_r, critic_r, ppo_r.optimizer, saver.data_dir, cfg_grasp)
 
 env.reset_state(qpos_reset_r2,
                 qpos_reset_l2,

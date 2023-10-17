@@ -20,8 +20,8 @@ $ mkdir raisim_build
 Clone the dgrasp repository:
 
 ```
-$ git clone git@github.com:christsa/dgrasp.git
-$ cd dgrasp
+$ git clone git@github.com:zdchan/artigrasp.git
+$ cd artigrasp
 ```
 
 Build the simulation backbone:

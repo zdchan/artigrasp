@@ -32,30 +32,21 @@ weight_saved = '/../2023-04-26-13-50-37/full_9900_r.pt'
 # configuration
 parser = argparse.ArgumentParser()
 parser.add_argument('-c', '--cfg', help='config file', type=str, default='cfg_reg.yaml')
-parser.add_argument('-m', '--mode', help='set mode either train or test', type=str, default='train')
 parser.add_argument('-d', '--logdir', help='set dir for storing data', type=str, default=None)
 parser.add_argument('-e', '--exp_name', help='exp_name', type=str, default=exp_name)
 parser.add_argument('-w', '--weight', type=str, default=weight_saved)
 parser.add_argument('-sd', '--storedir', type=str, default='data_all')
-parser.add_argument('-pr', '--prior', action="store_true")
-parser.add_argument('-o', '--obj_id', type=int, default=1)
 parser.add_argument('-t', '--test', action="store_true")
 parser.add_argument('-mc', '--mesh_collision', action="store_true")
 parser.add_argument('-ao', '--all_objects', action="store_true")
-parser.add_argument('-ev', '--evaluate', action="store_true")
-parser.add_argument('-to', '--test_object_set', type=int, default=-1)
-parser.add_argument('-ac', '--all_contact', action="store_true")
 parser.add_argument('-seed', '--seed', type=int, default=1)
 parser.add_argument('-itr', '--num_iterations', type=int, default=50001)
 parser.add_argument('-nr', '--num_repeats', type=int, default=1400)
 parser.add_argument('-debug', '--debug', action="store_true")
 parser.add_argument('-lr', '--log_rewards', action="store_true")
-parser.add_argument('-random', '--random', help='randomized goal obj angle', action="store_true")
 parser.add_argument('-re', '--load_trained_policy', action="store_true")
-parser.add_argument('-renew', '--renew', help='update labels every iteration', action="store_true")
 
 args = parser.parse_args()
-mode = args.mode
 weight_path = args.weight
 cfg_grasp = args.cfg
 
@@ -96,7 +87,6 @@ inference_flag = False
 all_obj_train = True if args.all_objects else False
 all_train = False
 test_inference = args.test
-train_obj_id = args.obj_id
 
 original_labels_arti, original_labels_grasp, shuffle_label = label_gen_final.label_train_r(num_repeats, False, False)
 processed_data, obj_list, left_kind_list, right_kind_list = label_gen_final.pose_gen(shuffle_label, num_repeats, False)
@@ -124,7 +114,7 @@ final_obj_euler = processed_data[16]
 num_envs = final_qpos_r.shape[0]
 cfg['environment']['hand_model_r'] = "rhand_mano_meshcoll.urdf" if args.mesh_collision else "rhand_mano.urdf"
 cfg['environment']['hand_model_l'] = "lhand_mano_meshcoll.urdf" if args.mesh_collision else "lhand_mano.urdf"
-cfg['environment']['num_envs'] = 1 if args.evaluate else num_envs
+cfg['environment']['num_envs'] = num_envs
 if args.debug:
     cfg['environment']['num_envs'] = 1
 cfg["testing"] = True if test_inference else False
@@ -170,10 +160,7 @@ actor_r = ppo_module.Actor(
 
 critic_r = ppo_module.Critic(ppo_module.MLP(cfg['architecture']['value_net'], activations, ob_dim_r, 1), device)
 
-if mode == 'retrain':
-    test_dir = True
-else:
-    test_dir = False
+test_dir = False
 
 saver = ConfigurationSaver(log_dir=exp_path + "/raisimGymTorch/" + args.storedir + "/" + task_name,
                            save_items=[task_path + "/cfgs/" + args.cfg, task_path + "/Environment.hpp",
@@ -196,10 +183,6 @@ ppo_r = PPO.PPO(actor=actor_r,
 if args.load_trained_policy:
     load_param(saver.data_dir.split('eval')[0] + weight_path, env, actor_r, critic_r, ppo_r.optimizer, saver.data_dir,
                cfg_grasp)
-
-if mode == 'retrain' or args.evaluate:
-    load_param(saver.data_dir.split('eval')[0] + weight_path, env, actor_r, critic_r, ppo_r.optimizer, saver.data_dir,
-               args.cfg)
 
 if args.debug:
     qpos_reset_r = final_qpos_r
@@ -274,7 +257,6 @@ for update in range(args.num_iterations):
         else:
             random_noise_angle[i] = final_obj_angle[i]
             ave_angle_show[i] = 0
-    # random_noise_angle = np.float32(np.random.uniform(0, 1.5, (num_envs, 1)).copy())
     print(f"ave goal angle: {np.sum(np.abs(ave_angle_show)) / (num_envs/2)}")
     env.set_goals(random_noise_angle,
                   final_obj_pos,

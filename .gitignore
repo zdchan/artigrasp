@@ -18,7 +18,6 @@ examples/cmake-build*/*
 */*.m~
 */data/*
 */data_ycb/*
-*/data_all/*
 */data_grasptta/*
 */data_v5/*
 */grasp_tta/*
