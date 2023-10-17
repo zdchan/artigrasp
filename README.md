@@ -16,7 +16,7 @@
 
 ## Info
 
-This code was tested with Python 3.8 on Ubuntu 20.04. The repository comes with all the features of the [RaiSim](https://raisim.com/) physics simulation, as ArtiGrasp is integrated into RaiSim.
+This code was tested with Python 3.8 and gcc 9.4.0 on Ubuntu 20.04. The repository comes with all the features of the [RaiSim](https://raisim.com/) physics simulation, as ArtiGrasp is integrated into RaiSim.
 
 The ArtiGrasp related code can be found in the [raisimGymTorch](./raisimGymTorch) subfolder. There are six environments (see [envs](./raisimGymTorch/raisimGymTorch/env/envs/)). [compose_eval](./raisimGymTorch/raisimGymTorch/env/envs/compose_eval) is for the quantitative evaluation of the Dynamic Object Grasping and Articulation task. [fixed_arti_evaluation](./raisimGymTorch/raisimGymTorch/env/envs/fixed_arti_evaluation) is for the quantitative evaluation of grasping and articulation with fixed object base.  [floating_evaluation](./raisimGymTorch/raisimGymTorch/env/envs/floating_evaluation) is for the quantitative evaluation of grasping and articulation with free object base.  [general_two](./raisimGymTorch/raisimGymTorch/env/envs/general_two), [left_fixed](./raisimGymTorch/raisimGymTorch/env/envs/left_fixed) and [multi_obj_arti](./raisimGymTorch/raisimGymTorch/env/envs/multi_obj_arti) are the training environments for two hand cooperation with free object base, left hand policy with fixed object base, right hand policy with fixed object base respectively.
 
