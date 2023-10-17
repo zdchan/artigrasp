@@ -1,0 +1,10 @@
+<?xml version="0.0" ?>
+<robot name="Mano">
+	<link name="object0">
+		<inertial>
+			<origin rpy="-0.01597 -0.03961 -0.03906" xyz="0.00065 -0.00183 -0.00630"/>
+			<mass value="0.37959"/>
+			<inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+		</inertial>
+	</link>
+</robot>

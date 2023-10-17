@@ -1,0 +1,1180 @@
+<?xml version="1.0" ?>
+<robot name="lhand_mano">
+   <material name="hand_color">
+      <color rgba="0.91796875 0.765 0.5234 1"/>
+   </material>
+   <link name="world"/>
+   <joint name="world_to_base" type="fixed">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 0"/>
+      <parent link="world"/>
+      <child link="sliderBar"/>
+   </joint>
+   <link name="sliderBar">
+      <inertial>
+         <mass value="0"/>
+         <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+      </inertial>
+   </link>
+   <link name="left_wrist">
+      <inertial>
+         <origin rpy="0.0001382761617732206 0.0002243870504664801 0.0002987261918042581" xyz="0.0342879286278462 -0.001983360201199018 4.859569785971383e-05"/>
+         <mass value="0.2621651489812583"/>
+         <inertia ixx="0.00013912170083065" ixy="1.155307773191229e-05" ixz="-9.671338918447674e-07" iyy="0.0002978730394392774" iyz="-1.049928211702997e-06" izz="0.0002243946637740315"/>
+      </inertial>
+   </link>
+   <link name="left_wrist_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_wrist_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_wrist_rx">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_wrist_ry">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_wrist_rz">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.0956699401140213 -0.006383428350090981 -0.006186304613947868"/>
+         <geometry>
+            <mesh filename="./meshes/left_wrist.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="0.006844884579535027 0.1419415805103208 -0.09621061312114154" xyz="0.03922105953097343 -0.003785171080380678 -0.0006308349594473838"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <box size="0.0878 0.027 0.07000000000000001"/>
+         </geometry>
+      </collision>
+      <collision>
+         <origin rpy="0.541405353260723 0.6746053143028581 0.1940404583427586" xyz="0.0144538301974535 -0.009313400834798813 0.01548770722001791"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.0235689027607441" radius="0.015"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_wrist_0x" type="prismatic">
+      <origin xyz="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <parent link="sliderBar"/>
+      <child link="left_wrist"/>
+      <dynamics damping="10.0" friction="0.0001"/>
+      <limit effort="100" velocity="200" lower="-1.8" upper="1.8"/>
+   </joint>
+   <joint name="left_wrist_0y" type="prismatic">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_wrist"/>
+      <child link="left_wrist_y"/>
+      <dynamics damping="10.0" friction="0.0001"/>
+      <limit effort="100" velocity="200" lower="-1.8" upper="1.8"/>
+   </joint>
+   <joint name="left_wrist_0z" type="prismatic">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_wrist_y"/>
+      <child link="left_wrist_z"/>
+      <dynamics damping="10.0" friction="0.0001"/>
+      <limit effort="100" velocity="200" lower="-1.8" upper="1.8"/>
+   </joint>
+   <joint name="left_wrist_0rx" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_wrist_z"/>
+      <child link="left_wrist_rx"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-6.28" upper="6.28"/>
+   </joint>
+   <joint name="left_wrist_0ry" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_wrist_rx"/>
+      <child link="left_wrist_ry"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-6.28" upper="6.28"/>
+   </joint>
+   <joint name="left_wrist_0rz" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_wrist_ry"/>
+      <child link="left_wrist_rz"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-6.28" upper="6.28"/>
+   </joint>
+   <link name="left_index_fixed">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_index1_fixed" type="fixed">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_wrist_rz"/>
+      <child link="left_index_fixed"/>
+   </joint>
+   <link name="left_index1">
+      <inertial>
+         <origin rpy="4.400634882400539e-07 8.009090468789042e-07 8.334384191006943e-07" xyz="0.01841049225853478 0.003372971502468174 0.001485845999724966"/>
+         <mass value="0.008858013426270924"/>
+         <inertia ixx="4.441778858945276e-07" ixy="-2.338493266666855e-08" ixz="3.18170695566895e-08" iyy="7.994890796984332e-07" iyz="1.643036507894817e-10" izz="8.307439886266918e-07"/>
+      </inertial>
+   </link>
+   <link name="left_index1_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_index1_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.007572680711746216 -0.0011830716393888 -0.0268722977489233"/>
+         <geometry>
+            <mesh filename="./meshes/left_index1.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-1.065673404150012 1.431506141451089 -0.9477048864768793" xyz="0.0118830343708396 0.001457922742702067 0.0008061919361352921"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.02399849852919578" radius="0.008999999999999999"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_index1_x" type="revolute">
+      <origin xyz="0.08809725940227509 -0.005200356710702181 0.02068599313497543"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_index_fixed"/>
+      <child link="left_index1"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.35" upper="0.77"/>
+   </joint>
+   <joint name="left_index1_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_index1"/>
+      <child link="left_index1_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.06" upper="0.9"/>
+   </joint>
+   <joint name="left_index1_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_index1_y"/>
+      <child link="left_index1_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.65" upper="1.92"/>
+   </joint>
+   <link name="left_index2">
+      <inertial>
+         <origin rpy="1.510899987947891e-07 2.052806130641708e-07 2.260681513546289e-07" xyz="0.01121308787856609 -0.0001671420303115982 2.323359852933818e-05"/>
+         <mass value="0.004299645893867726"/>
+         <inertia ixx="1.542203558958333e-07" ixy="8.90732525473011e-09" ixz="1.088989905119618e-08" iyy="2.236098862551796e-07" iyz="3.82883197114819e-09" izz="2.046085210625759e-07"/>
+      </inertial>
+   </link>
+   <link name="left_index2_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_index2_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.02510622143745422 -0.005192427430301905 -0.02908936329185963"/>
+         <geometry>
+            <mesh filename="./meshes/left_index2.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="1.658461261310608 1.512034214827133 1.5997737489094" xyz="0.007334427908062935 -0.0004298262647353113 -3.777751408051699e-05"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01469421602785587" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_index2_x" type="revolute">
+      <origin xyz="0.03267890214920044 0.004009355790913105 0.002217065542936325"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_index1_z"/>
+      <child link="left_index2"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.0" upper="0.66"/>
+   </joint>
+   <joint name="left_index2_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_index2"/>
+      <child link="left_index2_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.52" upper="0.48"/>
+   </joint>
+   <joint name="left_index2_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_index2_y"/>
+      <child link="left_index2_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.52" upper="2.77"/>
+   </joint>
+   <link name="left_index3">
+      <inertial>
+         <origin rpy="7.390473353246276e-08 1.425425783253727e-07 1.585859361500646e-07" xyz="0.01113279506587959 -0.0005018619283154242 -0.0001430962173195396"/>
+         <mass value="0.003095705087766235"/>
+         <inertia ixx="7.464031657849693e-08" ixy="-1.575984661878876e-09" ixz="7.061194366436874e-09" iyy="1.572361421002517e-07" iyz="-4.292986089642027e-09" izz="1.431567893291516e-07"/>
+      </inertial>
+   </link>
+   <link name="left_index3_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_index3_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.04726213216781616 -0.003894004039466381 -0.02897524461150169"/>
+         <geometry>
+            <mesh filename="./meshes/left_index3.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="1.840193960081717 1.497003187126881 1.76835496522512" xyz="0.009001294411288496 -0.0006414405166041191 -0.0001771079735335346"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.0180517161787265" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_index3_x" type="revolute">
+      <origin xyz="0.02215591073036194 -0.001298423390835524 -0.000114118680357933"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_index2_z"/>
+      <child link="left_index3"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.66" upper="0.92"/>
+   </joint>
+   <joint name="left_index3_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_index3"/>
+      <child link="left_index3_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.34" upper="0.42"/>
+   </joint>
+   <joint name="left_index3_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_index3_y"/>
+      <child link="left_index3_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.27" upper="1.21"/>
+   </joint>
+   <link name="left_index_tip">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_index_tip" type="fixed">
+      <origin xyz="0.025482177734375 0.001184116583317518 -0.0005013830959796906"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_index3_z"/>
+      <child link="left_index_tip"/>
+   </joint>
+   <link name="left_middle_fixed">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_middle1_fixed" type="fixed">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_wrist_rz"/>
+      <child link="left_middle_fixed"/>
+   </joint>
+   <link name="left_middle1">
+      <inertial>
+         <origin rpy="5.347692323135399e-07 1.157950269961844e-06 1.203128423241039e-06" xyz="0.0140409342837003 0.002369654630678606 -0.002975534943670234"/>
+         <mass value="0.01041232271134444"/>
+         <inertia ixx="5.691079252468614e-07" ixy="-5.156376283079277e-10" ixz="1.424316691619549e-07" iyy="1.20110506257594e-06" iyz="-9.477735454137562e-09" izz="1.125634937693621e-06"/>
+      </inertial>
+   </link>
+   <link name="left_middle1_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_middle1_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.001009486615657806 -0.00490446574985981 -0.002828764962032437"/>
+         <geometry>
+            <mesh filename="./meshes/left_middle1.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-2.820406600974239 1.383922349862802 -2.755488033918114" xyz="0.0111696794629097 0.0006667306879535317 -0.002003961941227317"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.02273518180847168" radius="0.008999999999999999"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_middle1_x" type="revolute">
+      <origin xyz="0.09466045349836349 -0.001478962600231171 -0.003357539651915431"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_middle_fixed"/>
+      <child link="left_middle1"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.8" upper="0.67"/>
+   </joint>
+   <joint name="left_middle1_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_middle1"/>
+      <child link="left_middle1_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.02" upper="0.82"/>
+   </joint>
+   <joint name="left_middle1_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_middle1_y"/>
+      <child link="left_middle1_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.15" upper="2.5"/>
+   </joint>
+   <link name="left_middle2">
+      <inertial>
+         <origin rpy="1.438040233926391e-07 1.926044512116745e-07 2.071828806124577e-07" xyz="0.01308363736227511 -0.0002096533445448976 -0.002215308889885083"/>
+         <mass value="0.004134916987366406"/>
+         <inertia ixx="1.495346703662593e-07" ixy="1.473680795106209e-08" ixz="8.546669747643986e-09" iyy="2.028406094797018e-07" iyz="-5.09223274975039e-09" izz="1.912160753708102e-07"/>
+      </inertial>
+   </link>
+   <link name="left_middle2_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_middle2_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.03017318062484264 -0.006765794008970261 0.002765744691714644"/>
+         <geometry>
+            <mesh filename="./meshes/left_middle2.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="2.834223256819131 1.392042172086063 2.77494923392455" xyz="0.007762070745229721 -0.0004243212752044201 -0.00133674219250679"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01577550947666168" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_middle2_x" type="revolute">
+      <origin xyz="0.03118266724050045 0.001861328259110451 -0.005594509653747082"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_middle1_z"/>
+      <child link="left_middle2"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.67" upper="0.3"/>
+   </joint>
+   <joint name="left_middle2_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_middle2"/>
+      <child link="left_middle2_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.68" upper="0.62"/>
+   </joint>
+   <joint name="left_middle2_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_middle2_y"/>
+      <child link="left_middle2_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.02" upper="2.33"/>
+   </joint>
+   <link name="left_middle3">
+      <inertial>
+         <origin rpy="7.54780640853015e-08 1.274015536127711e-07 1.389691917127095e-07" xyz="0.01341204096573576 -0.0001321703788337691 -0.002081687520704607"/>
+         <mass value="0.003016592369827251"/>
+         <inertia ixx="7.966680664410973e-08" ixy="-8.157506841560109e-09" ixz="1.255883708825432e-08" iyy="1.371344583955492e-07" iyz="-1.105336821754632e-09" izz="1.250475443711232e-07"/>
+      </inertial>
+   </link>
+   <link name="left_middle3_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_middle3_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.0530778169631958 -0.005513689480721951 0.006710258312523365"/>
+         <geometry>
+            <mesh filename="./meshes/left_middle3.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-2.939644762229884 1.407919909220686 -2.904061101940813" xyz="0.009145713945442134 0.0003014557215035537 -0.001472391958602528"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01853676316983516" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_middle3_x" type="revolute">
+      <origin xyz="0.02290463633835316 -0.00125210452824831 -0.003944513387978077"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_middle2_z"/>
+      <child link="left_middle3"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.59" upper="0.16"/>
+   </joint>
+   <joint name="left_middle3_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_middle3"/>
+      <child link="left_middle3_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.35" upper="0.27"/>
+   </joint>
+   <joint name="left_middle3_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_middle3_y"/>
+      <child link="left_middle3_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.07" upper="1.06"/>
+   </joint>
+   <link name="left_middle_tip">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_middle_tip" type="fixed">
+      <origin xyz="0.0256921648979187 0.003846850246191025 -0.004136247560381889"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_middle3_z"/>
+      <child link="left_middle_tip"/>
+   </joint>
+   <link name="left_pinky_fixed">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_pinky1_fixed" type="fixed">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_wrist_rz"/>
+      <child link="left_pinky_fixed"/>
+   </joint>
+   <link name="left_pinky1">
+      <inertial>
+         <origin rpy="1.488272253134327e-07 2.133354782353516e-07 2.245894759057728e-07" xyz="0.007298340700857824 0.001209671288326417 -0.007077038184132044"/>
+         <mass value="0.00429689371005088"/>
+         <inertia ixx="1.681797734422894e-07" ixy="8.006221661156753e-10" ixz="2.95652708455078e-08" iyy="2.244614664283689e-07" iyz="-1.741624467465122e-09" izz="1.941109395838989e-07"/>
+      </inertial>
+   </link>
+   <link name="left_pinky1_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_pinky1_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.02688296139240265 0.003556899726390839 0.03702303022146225"/>
+         <geometry>
+            <mesh filename="./meshes/left_pinky1.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-3.13664619965706 0.9372186196136472 -3.131821312881724" xyz="0.004880589433014393 1.773456642695237e-05 -0.003585279919207096"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01211192792654038" radius="0.008999999999999999"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_pinky1_x" type="revolute">
+      <origin xyz="0.06878697872161865 -0.009940328076481819 -0.04320933669805527"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_pinky_fixed"/>
+      <child link="left_pinky1"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.4" upper="1.2"/>
+   </joint>
+   <joint name="left_pinky1_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_pinky1"/>
+      <child link="left_pinky1_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.77" upper="1.5"/>
+   </joint>
+   <joint name="left_pinky1_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_pinky1_y"/>
+      <child link="left_pinky1_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.2" upper="2.76"/>
+   </joint>
+   <link name="left_pinky2">
+      <inertial>
+         <origin rpy="7.146102954224204e-08 1.037878021848524e-07 1.103364436860933e-07" xyz="0.007860466243023589 0.001082534402904418 -0.006184610881384799"/>
+         <mass value="0.002781613790564921"/>
+         <inertia ixx="8.102322893548413e-08" ixy="1.827691227174676e-09" ixz="1.491443782328065e-08" iyy="1.084056993496766e-07" iyz="-4.39051464243735e-09" izz="9.615634712802697e-08"/>
+      </inertial>
+   </link>
+   <link name="left_pinky2_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_pinky2_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.009868551045656204 0.003495074575766921 0.04952181130647659"/>
+         <geometry>
+            <mesh filename="./meshes/left_pinky2.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="3.074796837859433 0.9925842493150494 3.018349175930415" xyz="0.004793046973645687 -0.0002087832690449432 -0.003121043555438519"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01144688606262207" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_pinky2_x" type="revolute">
+      <origin xyz="0.01701441034674644 6.182515062391758e-05 -0.01249878108501434"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_pinky1_z"/>
+      <child link="left_pinky2"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.67" upper="2.65"/>
+   </joint>
+   <joint name="left_pinky2_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_pinky2"/>
+      <child link="left_pinky2_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.04" upper="0.84"/>
+   </joint>
+   <joint name="left_pinky2_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_pinky2_y"/>
+      <child link="left_pinky2_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.54" upper="1.87"/>
+   </joint>
+   <link name="left_pinky3">
+      <inertial>
+         <origin rpy="2.618440686978893e-08 4.120993065930472e-08 4.443707253542678e-08" xyz="0.008810483659855919 -0.0009578335233779772 -0.005027785409461596"/>
+         <mass value="0.001566057855040921"/>
+         <inertia ixx="2.960281534014392e-08" ixy="-2.583004582539369e-11" ixz="6.313325860791448e-09" iyy="4.437382993433468e-08" iyz="-4.851731346724827e-10" izz="3.785476479004187e-08"/>
+      </inertial>
+   </link>
+   <link name="left_pinky3_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_pinky3_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.00599835067987442 0.004186230711638927 0.05985371395945549"/>
+         <geometry>
+            <mesh filename="./meshes/left_pinky3.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="3.001814974863856 1.023483359517321 2.893594779193235" xyz="0.005771451704418715 -0.0004900273787599806 -0.00348290132177909"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01351745289995458" radius="0.0065"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_pinky3_x" type="revolute">
+      <origin xyz="0.01586690172553062 -0.0006911561358720064 -0.0103319026529789"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_pinky2_z"/>
+      <child link="left_pinky3"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.17" upper="0.79"/>
+   </joint>
+   <joint name="left_pinky3_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_pinky3"/>
+      <child link="left_pinky3_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.93" upper="0.98"/>
+   </joint>
+   <joint name="left_pinky3_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_pinky3_y"/>
+      <child link="left_pinky3_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.21" upper="1.52"/>
+   </joint>
+   <link name="left_pinky_tip">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_pinky_tip" type="fixed">
+      <origin xyz="0.01709342189133167 0.001548676285892725 -0.01031537726521492"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_pinky3_z"/>
+      <child link="left_pinky_tip"/>
+   </joint>
+   <link name="left_ring_fixed">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_ring1_fixed" type="fixed">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_wrist_rz"/>
+      <child link="left_ring_fixed"/>
+   </joint>
+   <link name="left_ring1">
+      <inertial>
+         <origin rpy="3.614178026726317e-07 5.755817865960004e-07 5.948303545159799e-07" xyz="0.01229362562996941 0.002478270156332958 -0.0006989646432877146"/>
+         <mass value="0.007566219384225672"/>
+         <inertia ixx="3.725577298656606e-07" ixy="5.569118446057833e-09" ixz="4.869270235624241e-08" iyy="5.796986474490743e-07" iyz="-9.515256953178896e-09" izz="5.795735664698766e-07"/>
+      </inertial>
+   </link>
+   <link name="left_ring1_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_ring1_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.01393437385559082 -0.002426007762551308 0.02048688568174839"/>
+         <geometry>
+            <mesh filename="./meshes/left_ring1.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-2.756429740384719 1.378882821128404 -2.677062098469931" xyz="0.009739752858877182 0.000711024331394583 -0.001753832912072539"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01984381636977196" radius="0.008999999999999999"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_ring1_x" type="revolute">
+      <origin xyz="0.08173556625843048 -0.003957420587539673 -0.02667319029569626"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_ring_fixed"/>
+      <child link="left_ring1"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.87" upper="0.56"/>
+   </joint>
+   <joint name="left_ring1_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_ring1"/>
+      <child link="left_ring1_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.81" upper="0.79"/>
+   </joint>
+   <joint name="left_ring1_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_ring1_y"/>
+      <child link="left_ring1_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.3" upper="2.62"/>
+   </joint>
+   <link name="left_ring2">
+      <inertial>
+         <origin rpy="1.629027005874453e-07 3.416994576652999e-07 3.489683819768513e-07" xyz="0.01120108747821226 -0.0003899902702547342 -0.004202645694517216"/>
+         <mass value="0.005029987599785342"/>
+         <inertia ixx="1.789927406775134e-07" ixy="1.576526576054183e-08" ixz="4.868308432861158e-08" iyy="3.470513046564063e-07" iyz="-6.36215768749042e-09" izz="3.275264948956767e-07"/>
+      </inertial>
+   </link>
+   <link name="left_ring2_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_ring2_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.01437989994883537 -0.004493014886975288 0.02558542415499687"/>
+         <geometry>
+            <mesh filename="./meshes/left_ring2.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="2.923959085930092 1.249885231202112 2.840996889674495" xyz="0.008201702497899532 -0.0005886515136808157 -0.002661943435668945"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01728587441146374" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_ring2_x" type="revolute">
+      <origin xyz="0.02831427380442619 0.002067007124423981 -0.005098538473248482"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_ring1_z"/>
+      <child link="left_ring2"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.1" upper="0.14"/>
+   </joint>
+   <joint name="left_ring2_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_ring2"/>
+      <child link="left_ring2_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.49" upper="0.45"/>
+   </joint>
+   <joint name="left_ring2_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_ring2_y"/>
+      <child link="left_ring2_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.8" upper="1.97"/>
+   </joint>
+   <link name="left_ring3">
+      <inertial>
+         <origin rpy="6.339510042229164e-08 1.310915770487078e-07 1.399544841982415e-07" xyz="0.01199416619961557 -8.532674859326825e-05 -0.003519108567331515"/>
+         <mass value="0.002881347058227751"/>
+         <inertia ixx="6.960751065751161e-08" ixy="-3.500704841988176e-09" ixz="1.945298534824498e-08" iyy="1.392429752399261e-07" iyz="-1.229084363578962e-09" izz="1.255906757718032e-07"/>
+      </inertial>
+   </link>
+   <link name="left_ring3_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_ring3_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="-0.0379004180431366 -0.00280490331351757 0.03321924060583115"/>
+         <geometry>
+            <mesh filename="./meshes/left_ring3.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-3.025110379404621 1.277093683239338 -2.984813522576495" xyz="0.008628424416764247 0.0003032926320860706 -0.002591979665581778"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01802887161452769" radius="0.0075"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_ring3_x" type="revolute">
+      <origin xyz="0.02352051809430122 -0.001688111573457718 -0.007633816450834274"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_ring2_z"/>
+      <child link="left_ring3"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.71" upper="0.33"/>
+   </joint>
+   <joint name="left_ring3_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_ring3"/>
+      <child link="left_ring3_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.71" upper="0.51"/>
+   </joint>
+   <joint name="left_ring3_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_ring3_y"/>
+      <child link="left_ring3_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.7" upper="1.39"/>
+   </joint>
+   <link name="left_ring_tip">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_ring_tip" type="fixed">
+      <origin xyz="0.02443568781018257 0.003858924377709627 -0.007340483367443085"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_ring3_z"/>
+      <child link="left_ring_tip"/>
+   </joint>
+   <link name="left_thumb_fixed">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_thumb1_fixed" type="fixed">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_wrist_rz"/>
+      <child link="left_thumb_fixed"/>
+   </joint>
+   <link name="left_thumb1">
+      <inertial>
+         <origin rpy="1.235440583239777e-06 1.48365228191902e-06 2.229112816401562e-06" xyz="0.005365142091468073 -0.002576591731301339 0.01297582060630504"/>
+         <mass value="0.01389095525951898"/>
+         <inertia ixx="1.284009306496801e-06" ixy="1.454644559940271e-07" ixz="-1.572922643450275e-07" iyy="1.807529504286183e-06" iyz="-3.475811205794344e-07" izz="1.856666870777373e-06"/>
+      </inertial>
+   </link>
+   <link name="left_thumb1_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_thumb1_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.07158022373914719 0.009138905443251133 -0.03199914842844009"/>
+         <geometry>
+            <mesh filename="./meshes/left_thumb1.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="-0.03759002942324141 0.6914858879290118 -0.01354175456813422" xyz="0.006628209725022316 0.0003008996718563139 0.008001001551747322"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.02078843280673027" radius="0.01"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_thumb1_x" type="revolute">
+      <origin xyz="0.02408971637487411 -0.01552233379334211 0.02581284381449223"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_thumb_fixed"/>
+      <child link="left_thumb1"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.4" upper="2.38"/>
+   </joint>
+   <joint name="left_thumb1_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_thumb1"/>
+      <child link="left_thumb1_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.88" upper="0.92"/>
+   </joint>
+   <joint name="left_thumb1_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_thumb1_y"/>
+      <child link="left_thumb1_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.86" upper="1.1"/>
+   </joint>
+   <link name="left_thumb2">
+      <inertial>
+         <origin rpy="4.315206340320147e-07 6.360198299791543e-07 6.783626977380813e-07" xyz="0.01075580107062458 -0.002345119908563988 0.008481227041064993"/>
+         <mass value="0.008175178965760945"/>
+         <inertia ixx="4.497509026165626e-07" ixy="3.182897992888526e-08" ixz="-5.071783866383158e-08" iyy="6.380552594404798e-07" iyz="2.504411759822494e-08" izz="6.580969996922079e-07"/>
+      </inertial>
+   </link>
+   <link name="left_thumb2_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_thumb2_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.0519469790160656 0.008247618563473225 -0.0556987039744854"/>
+         <geometry>
+            <mesh filename="./meshes/left_thumb2.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="0.3579510780566544 0.9614433161852158 0.1881438544702494" xyz="0.007008775603026152 -0.00171387754380703 0.004581758752465248"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.01709418907761574" radius="0.01"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_thumb2_x" type="revolute">
+      <origin xyz="0.01963324472308159 0.0008912868797779083 0.0236995555460453"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_thumb1_z"/>
+      <child link="left_thumb2"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.02" upper="0.27"/>
+   </joint>
+   <joint name="left_thumb2_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_thumb2"/>
+      <child link="left_thumb2_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.19" upper="1.3"/>
+   </joint>
+   <joint name="left_thumb2_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_thumb2_y"/>
+      <child link="left_thumb2_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-2.1" upper="1.64"/>
+   </joint>
+   <link name="left_thumb3">
+      <inertial>
+         <origin rpy="3.135776419754515e-07 6.645022884507791e-07 6.959184274954122e-07" xyz="0.01179746517184554 -0.002270360268563639 0.009189612105652722"/>
+         <mass value="0.007477723446233208"/>
+         <inertia ixx="4.504282205664338e-07" ixy="4.038463243261262e-08" ixz="-1.721710210247886e-07" iyy="6.644178756137494e-07" iyz="4.82761922053817e-08" izz="5.591522617414593e-07"/>
+      </inertial>
+   </link>
+   <link name="left_thumb3_y">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <link name="left_thumb3_z">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+      <visual>
+         <origin rpy="0 0 0" xyz="0.02972924336791039 0.01368059031665325 -0.07022282481193542"/>
+         <geometry>
+            <mesh filename="./meshes/left_thumb3.stl" scale="1 1 1"/>
+         </geometry>
+         <material name="hand_color"/>
+      </visual>
+      <collision>
+         <origin rpy="0.2106306680416017 0.896799192491029 0.1016195413175227" xyz="0.01010010661340334 -0.001686782924337273 0.007889468247766915"/>
+         <material name="">
+            <contact name="finger"/>
+         </material>
+         <geometry>
+            <capsule length="0.02585351809471755" radius="0.01"/>
+         </geometry>
+      </collision>
+   </link>
+   <joint name="left_thumb3_x" type="revolute">
+      <origin xyz="0.02221773564815521 -0.005432971753180027 0.01452412083745003"/>
+      <axis xyz="1 0 0"/>
+      <parent link="left_thumb2_z"/>
+      <child link="left_thumb3"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-0.52" upper="2.4"/>
+   </joint>
+   <joint name="left_thumb3_y" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <parent link="left_thumb3"/>
+      <child link="left_thumb3_y"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.75" upper="1.49"/>
+   </joint>
+   <joint name="left_thumb3_z" type="revolute">
+      <origin xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <parent link="left_thumb3_y"/>
+      <child link="left_thumb3_z"/>
+      <dynamics damping="1.0" friction="0.0001"/>
+      <limit effort="1000" velocity="200" lower="-1.25" upper="1.92"/>
+   </joint>
+   <link name="left_thumb_tip">
+      <inertial>
+         <origin rpy="0 0 0" xyz="0 0 0"/>
+         <mass value="0"/>
+         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      </inertial>
+   </link>
+   <joint name="left_thumb_tip" type="fixed">
+      <origin xyz="0.02601354569196701 -0.002678442746400833 0.02388214319944382"/>
+      <axis xyz="0 0 0"/>
+      <parent link="left_thumb3_z"/>
+      <child link="left_thumb_tip"/>
+   </joint>
+</robot>
+

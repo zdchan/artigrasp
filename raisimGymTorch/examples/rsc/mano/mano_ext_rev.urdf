@@ -1,0 +1,1120 @@
+<?xml version="0.0" ?>
+<robot name="mano">
+
+
+
+  <link name="world">  </link>
+
+  <joint name="world_to_base" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin xyz="0.0 0.0 0.0"/>
+    <parent link="world"/>
+    <child link="sliderBar"/>
+  </joint>
+
+  <link name="sliderBar">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+    <!--
+      Palm
+    -->
+    <!-- Palm -->
+    <link name="palm">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+
+    <link name="link_palm_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_palm_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_palm_rx">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_palm_ry">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_palm_rz">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0.0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="meshes/palm_local.stl" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0.2" xyz="-0.03 0 0"/>
+            <geometry>
+                <box size="0.08780 0.027 0.07"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin rpy="-2.61505 0.70030 -1.87000" xyz="-0.01187 -0.00708 0.01218"/>
+            <geometry>
+                <capsule length="0.03684" radius="0.015"/>
+            </geometry>
+        </collision>
+    </link>
+    <!-- Hip joint -->
+    <joint name="WRJ0x" type="revolute">
+        <parent link="sliderBar"/>
+        <child link="palm"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-3.14" upper="3.14"  velocity="0.5"/>
+        <dynamics damping="50.0" friction="0.0001"/>
+    </joint>
+    <joint name="WRJ0y" type="revolute">
+        <parent link="palm"/>
+        <child link="link_palm_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-3.14" upper="3.14"  velocity="0.5"/>
+        <dynamics damping="50.0" friction="0.0001"/>
+    </joint>
+    <joint name="WRJ0z" type="revolute">
+        <parent link="link_palm_y"/>
+        <child link="link_palm_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-3.14" upper="3.14"  velocity="0.5"/>
+        <dynamics damping="50.0" friction="0.0001"/>
+    </joint>
+    <joint name="WRJ0rx" type="prismatic">
+        <parent link="link_palm_z"/>
+        <child link="link_palm_rx"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="10.0" lower="-1.0" upper="1.0" velocity="0.5"/>
+        <dynamics damping="10.0" friction="0.0001"/>
+    </joint>
+    <joint name="WRJ0ry" type="prismatic">
+        <parent link="link_palm_rx"/>
+        <child link="link_palm_ry"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="10.0" lower="-1.0" upper="1.0" velocity="0.5"/>
+        <dynamics damping="10.0" friction="0.0001"/>
+    </joint>
+    <joint name="WRJ0rz" type="prismatic">
+        <parent link="link_palm_ry"/>
+        <child link="link_palm_rz"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="10.0" lower="0.0" upper="1.5" velocity="0.5"/>
+        <dynamics damping="10.0" friction="0.0001"/>
+    </joint>
+
+
+     <!-- FF -->
+    <link name="fffixed">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <!-- Fix Finger joint -->
+    <joint name="Palm_FFJ2" type="fixed">
+        <parent link="link_palm_rz"/>
+        <child link="fffixed"/>
+        <origin xyz="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <link name="ffproximal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_ff_pm_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_ff_pm_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="1.99869 1.42705 1.86385" xyz="-0.016115 0.0021222 0.000967899"/>
+          <geometry>
+            <capsule length="0.03257" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/ffprox_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- FF2 proximal joint -->
+    <joint name="FFJ2" type="revolute">
+        <parent link="fffixed"/>
+        <child link="ffproximal"/>
+        <origin xyz="-0.0854947 -0.00507511 0.0193252"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="FFJ2_y" type="revolute">
+        <parent link="ffproximal"/>
+        <child link="link_ff_pm_y"/>
+        <origin xyz="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.8" upper="0.8" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="FFJ2_z" type="revolute">
+        <parent link="link_ff_pm_y"/>
+        <child link="link_ff_pm_z"/>
+        <origin xyz="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.8" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+  <link name="ffmiddle_fixed">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="ffmiddle">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_ff_md_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_ff_md_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="-1.40722 1.51399 -1.35143" xyz="-0.0109464 -0.000614176 -0.000101378"/>
+          <geometry>
+            <capsule length="0.02193" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/ffmiddle_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- FF1 joint -->
+    <joint name="FFJ1_f" type="fixed">
+        <parent link="link_ff_pm_z"/>
+        <child link="ffmiddle_fixed"/>
+        <origin xyz="-0.03223 0.0042444 0.0019358"/>
+        <axis xyz="1 0 0"/>
+    </joint>
+    <joint name="FFJ1" type="revolute">
+        <parent link="ffmiddle_fixed"/>
+        <child link="ffmiddle"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="FFJ1_y" type="revolute">
+        <parent link="ffmiddle"/>
+        <child link="link_ff_md_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="FFJ1_z" type="revolute">
+        <parent link="link_ff_md_y"/>
+        <child link="link_ff_md_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="ffdistal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_ff_dd_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_ff_dd_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="2.99663 1.41120 2.97154" xyz="-0.0113096 0.000262979 0.00180133"/>
+          <geometry>
+            <capsule length="0.022" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/ffdist_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- FF1 joint -->
+    <joint name="FFJ0" type="revolute">
+        <parent link="link_ff_md_z"/>
+        <child link="ffdistal"/>
+        <origin xyz="-0.02189 -0.00123 -0.00020"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="FFJ0_y" type="revolute">
+        <parent link="ffdistal"/>
+        <child link="link_ff_dd_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="FFJ0_z" type="revolute">
+        <parent link="link_ff_dd_y"/>
+        <child link="link_ff_dd_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <!-- MF -->
+    <link name="mffixed">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <!-- Fix Finger joint -->
+    <joint name="Palm_MFJ2" type="fixed">
+        <parent link="link_palm_rz"/>
+        <child link="mffixed"/>
+        <origin xyz="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <link name="mfproximal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_mf_pm_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_mf_pm_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="0.30429 1.37974 0.25169" xyz="-0.015276 0.000885268 -0.00281892"/>
+          <geometry>
+            <capsule length="0.03112" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/mfprox_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+
+    </link>
+    <!-- MF2 proximal joint -->
+    <joint name="MFJ2" type="revolute">
+        <parent link="mffixed"/>
+        <child link="mfproximal"/>
+        <origin xyz="-0.0917039 -0.00186778 -0.00333364"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="MFJ2_y" type="revolute">
+        <parent link="mfproximal"/>
+        <child link="link_mf_pm_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.8" upper="0.8" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="MFJ2_z" type="revolute">
+        <parent link="link_mf_pm_y"/>
+        <child link="link_mf_pm_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.8" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="mfmiddle">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_mf_md_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_mf_md_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    <collision>
+      <origin rpy="-0.30066 1.39216 -0.25180" xyz="-0.0112555 -0.000601872 -0.00194118"/>
+      <geometry>
+        <capsule length="0.02287" radius="0.0075"/>
+      </geometry>
+   </collision>
+   <visual>
+       <origin rpy="0 0 0.0" xyz="0 0 0"/>
+       <geometry>
+           <mesh filename="meshes/mfmiddle_local.stl" scale="1 1 1"/>
+       </geometry>
+   </visual>
+    </link>
+    <!-- MF1 joint -->
+    <joint name="MFJ1" type="revolute">
+        <parent link="link_mf_pm_z"/>
+        <child link="mfmiddle"/>
+        <origin xyz="-0.0305521 0.00177054 -0.00563785"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="MFJ1_y" type="revolute">
+        <parent link="mfmiddle"/>
+        <child link="link_mf_md_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="MFJ1_z" type="revolute">
+        <parent link="link_mf_md_y"/>
+        <child link="link_mf_md_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="mfdistal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_mf_dd_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_mf_dd_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="-0.00758 1.36655 -0.00617" xyz="-0.0125493 -1.9697e-05 -0.00259927"/>
+          <geometry>
+            <capsule length="0.015" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/mfdist_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- MF0 joint -->
+    <joint name="MFJ0" type="revolute">
+        <parent link="link_mf_md_z"/>
+        <child link="mfdistal"/>
+        <origin xyz="-0.0225109 -0.00120374 -0.00388236"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="MFJ0_y" type="revolute">
+        <parent link="mfdistal"/>
+        <child link="link_mf_dd_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="MFJ0_z" type="revolute">
+        <parent link="link_mf_dd_y"/>
+        <child link="link_mf_dd_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <!-- RF -->
+    <link name="rffixed">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+
+    <!-- Fix Finger joint -->
+    <joint name="Palm_RFJ2" type="fixed">
+        <parent link="link_palm_rz"/>
+        <child link="rffixed"/>
+        <origin xyz="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <link name="rfproximal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_rf_pm_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_rf_pm_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="0.33491 1.37351 0.27543" xyz="-0.0138757 0.000911628 -0.00261948"/>
+          <geometry>
+            <capsule length="0.02830" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/rfprox_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- RF2 proximal joint -->
+    <joint name="RFJ2" type="revolute">
+        <parent link="rffixed"/>
+        <child link="rfproximal"/>
+        <origin xyz="-0.0793526 -0.00417752 -0.0249895"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="RFJ2_y" type="revolute">
+        <parent link="rfproximal"/>
+        <child link="link_rf_pm_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.8" upper="0.8" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="RFJ2_z" type="revolute">
+        <parent link="link_rf_pm_y"/>
+        <child link="link_rf_pm_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.8" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="rfmiddle">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_rf_md_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_rf_md_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="-0.21975 1.24718 -0.15838" xyz="-0.0115695 -0.000845882 -0.0037872"/>
+          <geometry>
+            <capsule length="0.02441" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/rfmiddle_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- RF1 joint -->
+    <joint name="RFJ1" type="revolute">
+        <parent link="link_rf_pm_z"/>
+        <child link="rfmiddle"/>
+        <origin xyz="-0.0277513 0.00182326 -0.00523897"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="RFJ1_y" type="revolute">
+        <parent link="rfmiddle"/>
+        <child link="link_rf_md_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="RFJ1_z" type="revolute">
+        <parent link="link_rf_md_y"/>
+        <child link="link_rf_md_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="rfdistal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_rf_dd_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_rf_dd_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="0.52073 1.21114 0.36480" xyz="-0.0108901 0.0020372 -0.00355203"/>
+          <geometry>
+            <capsule length="0.013" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+         <origin rpy="0 0 0.0" xyz="0 0 0"/>
+         <geometry>
+             <mesh filename="meshes/rfdist_local.stl" scale="1 1 1"/>
+         </geometry>
+       </visual>
+    </link>
+    <!-- RF0 joint -->
+    <joint name="RFJ0" type="revolute">
+        <parent link="link_rf_md_z"/>
+        <child link="rfdistal"/>
+        <origin xyz="-0.0231389 -0.00169176 -0.00757441"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="RFJ0_y" type="revolute">
+        <parent link="rfdistal"/>
+        <child link="link_rf_dd_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="RFJ0_z" type="revolute">
+        <parent link="link_rf_dd_y"/>
+        <child link="link_rf_dd_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+     <!-- LF -->
+    <link name="lffixed">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <!-- Fix Finger joint -->
+    <joint name="Palm_LFJ2" type="fixed">
+        <parent link="link_palm_rz"/>
+        <child link="lffixed"/>
+        <origin xyz="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <link name="lfproximal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_lf_pm_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_lf_pm_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="0.03545 0.92106 0.01759" xyz="-0.00813489 0.000219065 -0.00617687"/>
+          <geometry>
+            <capsule length="0.02043" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/lfprox_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- LF2 proximal joint -->
+    <joint name="LFJ2" type="revolute">
+        <parent link="lffixed"/>
+        <child link="lfproximal"/>
+        <origin xyz="-0.067051 -0.00936936 -0.0405877"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="LFJ2_y" type="revolute">
+        <parent link="lfproximal"/>
+        <child link="link_lf_pm_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.8" upper="0.8" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="LFJ2_z" type="revolute">
+        <parent link="link_lf_pm_y"/>
+        <child link="link_lf_pm_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100"  lower="-0.8" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="lfmiddle">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_lf_md_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_lf_md_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    <collision>
+      <origin rpy="-0.07079 0.97129 -0.03738" xyz="-0.00764547 -0.000369589 -0.00521187"/>
+      <geometry>
+        <capsule length="0.01852" radius="0.0075"/>
+      </geometry>
+   </collision>
+   <visual>
+       <origin rpy="0 0 0.0" xyz="0 0 0"/>
+       <geometry>
+           <mesh filename="meshes/lfmiddle_local.stl" scale="1 1 1"/>
+       </geometry>
+   </visual>
+    </link>
+    <!-- LF1 joint -->
+    <joint name="LFJ1" type="revolute">
+        <parent link="link_lf_pm_z"/>
+        <child link="lfmiddle"/>
+        <origin xyz="-0.0162698 0.00043813 -0.0123537"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="LFJ1_y" type="revolute">
+        <parent link="lfmiddle"/>
+        <child link="link_lf_md_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="LFJ1_z" type="revolute">
+        <parent link="link_lf_md_y"/>
+        <child link="link_lf_md_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+    <link name="lfdistal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_lf_dd_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_lf_dd_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="0.21103 1.00171 0.11582" xyz="-0.00829585 0.00111158 -0.00518895"/>
+          <geometry>
+            <capsule length="0.009" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/lfdist_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- LF0 joint -->
+    <joint name="LFJ0" type="revolute">
+        <parent link="link_lf_md_z"/>
+        <child link="lfdistal"/>
+        <origin xyz="-0.0152909 -0.000739178 -0.0104237"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="LFJ0_y" type="revolute">
+        <parent link="lfdistal"/>
+        <child link="link_lf_dd_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.25000" upper="0.25000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="LFJ0_z" type="revolute">
+        <parent link="link_lf_dd_y"/>
+        <child link="link_lf_dd_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+
+    <!-- TH -->
+    <link name="thfixed">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <!-- Fix Finger joint -->
+    <joint name="Palm_THJ2" type="fixed">
+        <parent link="link_palm_rz"/>
+        <child link="thfixed"/>
+        <origin xyz="0.0 0.0 0.0"/>
+    </joint>
+
+
+    <link name="thproximal">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_th_pm_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_th_pm_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="3.13218 0.71707 3.11647" xyz="-0.00985257 0.000106405 0.0112997"/>
+          <geometry>
+            <capsule length="0.02998" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/thprox_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- TH2 proximal joint -->
+    <joint name="THJ2" type="revolute">
+        <parent link="thfixed"/>
+        <child link="thproximal"/>
+        <origin xyz="-0.0237422 -0.014157 0.0243549"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="0" upper="1.57" velocity="0.5"/>
+        <dynamics damping="2.0" friction="0.0001"/>
+    </joint>
+    <joint name="THJ2_y" type="revolute">
+        <parent link="thproximal"/>
+        <child link="link_th_pm_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.8" upper="0.8" velocity="0.5"/>
+        <dynamics damping="2.0" friction="0.0001"/>
+    </joint>
+    <joint name="THJ2_z" type="revolute">
+        <parent link="link_th_pm_y"/>
+        <child link="link_th_pm_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.25" upper="0.25" velocity="0.5"/>
+        <dynamics damping="2.0" friction="0.0001"/>
+    </joint>
+
+    <link name="thmiddle">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00647"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_th_md_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_th_md_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="-2.78744 0.95704 -2.47720" xyz="-0.0108762 -0.00265738 0.00718706"/>
+          <geometry>
+            <capsule length="0.02661" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/thmiddle_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- TH1 joint -->
+    <joint name="THJ1" type="revolute">
+        <parent link="link_th_pm_z"/>
+        <child link="thmiddle"/>
+        <origin xyz="-0.0197051 0.00021281 0.0225994"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-1" upper="1" velocity="0.5"/>
+        <dynamics damping="2.0" friction="0.0001"/>
+    </joint>
+    <joint name="THJ1_y" type="revolute">
+        <parent link="thmiddle"/>
+        <child link="link_th_md_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-0.5" upper="0.5" velocity="0.5"/>
+        <dynamics damping="2.0" friction="0.0001"/>
+    </joint>
+    <joint name="THJ1_z" type="revolute">
+        <parent link="link_th_md_y"/>
+        <child link="link_th_md_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-0.5" upper="0.5" velocity="0.5"/>
+        <dynamics damping="2.0" friction="0.0001"/>
+    </joint>
+
+    <link name="thdistal">
+    <inertial>
+        <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="0.00647"/>
+        <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+    </inertial>
+    </link>
+    <link name="link_th_dd_y">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+    </link>
+    <link name="link_th_dd_z">
+        <inertial>
+            <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+            <mass value="0.00000"/>
+            <inertia ixx="0.00000" ixy="0" ixz="0" iyy="0.00000" iyz="0" izz="0.00000"/>
+        </inertial>
+        <collision>
+          <origin rpy="-2.90231 0.92975 -2.67108" xyz="-0.013664 -0.00241645 0.00990511"/>
+          <geometry>
+            <capsule length="0.025" radius="0.0075"/>
+          </geometry>
+       </collision>
+       <visual>
+           <origin rpy="0 0 0.0" xyz="0 0 0"/>
+           <geometry>
+               <mesh filename="meshes/thdist_local.stl" scale="1 1 1"/>
+           </geometry>
+       </visual>
+    </link>
+    <!-- TH0 joint -->
+    <joint name="THJ0" type="revolute">
+        <parent link="link_th_md_z"/>
+        <child link="thdistal"/>
+        <origin xyz="-0.0217524 -0.00531475 0.0143741"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="100" lower="-0.5000" upper="1.57" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="THJ0_y" type="revolute">
+        <parent link="thdistal"/>
+        <child link="link_th_dd_y"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="100" lower="-1.0000" upper="1.0000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+    <joint name="THJ0_z" type="revolute">
+        <parent link="link_th_dd_y"/>
+        <child link="link_th_dd_z"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="100" lower="-1.0000" upper="1.0000" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.0001"/>
+    </joint>
+
+
+</robot>

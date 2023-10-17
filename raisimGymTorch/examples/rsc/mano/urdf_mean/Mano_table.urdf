@@ -1,0 +1,40 @@
+<?xml version="0.0" ?>
+<robot name="Mano">
+	<link name="table">
+		<inertial>
+			<origin rpy="0.00000 -1.57080 3.14159" xyz="0.00000 0.00000 -0.10473"/>
+			<mass value="118.90000"/>
+			<inertia ixx="100.73208" ixy="0" ixz="0" iyy="98.30842" iyz="0" izz="20.69050"/>
+		</inertial>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 -0.03000"/>
+			<geometry>
+				<box size="3.00000 1.00000 0.04000"/>
+			</geometry>
+		</collision>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="1.45000 0.50000 -0.50010"/>
+			<geometry>
+				<cylinder length="0.94000" radius="0.04000"/>
+			</geometry>
+		</collision>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="-1.45000 0.50000 -0.50010"/>
+			<geometry>
+				<cylinder length="0.94000" radius="0.04000"/>
+			</geometry>
+		</collision>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="1.45000 -0.50000 -0.50010"/>
+			<geometry>
+				<cylinder length="0.94000" radius="0.04000"/>
+			</geometry>
+		</collision>
+		<collision>
+			<origin rpy="0.00000 -0.00000 0.00000" xyz="-1.45000 -0.50000 -0.50010"/>
+			<geometry>
+				<cylinder length="0.94000" radius="0.04000"/>
+			</geometry>
+		</collision>
+	</link>
+</robot>
