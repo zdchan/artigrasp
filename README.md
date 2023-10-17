@@ -96,13 +96,11 @@ We provide some pre-trained models to view the output of our method. They are st
 To cite us, please use the following:
 
 ```
-@misc{zhang2023artigrasp,
+@inProceedings{zhang2024artigrasp,
       title={ArtiGrasp: Physically Plausible Synthesis of Bi-Manual Dexterous Grasping and Articulation}, 
       author={Hui Zhang and Sammy Christen and Zicong Fan and Luocheng Zheng and Jemin Hwangbo and Jie Song and Otmar Hilliges},
-      year={2023},
-      eprint={2309.03891},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO}
+      booktitle={International Conference on 3D Vision (3DV)},
+      year={2024}
     }
 ```
 
