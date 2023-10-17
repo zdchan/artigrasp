@@ -20,7 +20,7 @@ $ mkdir raisim_build
 Clone the dgrasp repository:
 
 ```
-$ git clone git@github.com:zdchan/artigrasp.git
+$ git clone https://github.com/zdchan/artigrasp.git
 $ cd artigrasp
 ```
 
