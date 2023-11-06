@@ -98,7 +98,7 @@ To cite us, please use the following:
 ```
 @inProceedings{zhang2024artigrasp,
   title={{ArtiGrasp}: Physically Plausible Synthesis of Bi-Manual Dexterous Grasping and Articulation},
-  author={Zhang, Hui and Christen, Sammy, and Fan, Zicong and Zheng, Luocheng and Hwangbo, Jemin and Song, Jie, and Hilliges, Otmar},
+  author={Zhang, Hui and Christen, Sammy and Fan, Zicong and Zheng, Luocheng and Hwangbo, Jemin and Song, Jie and Hilliges, Otmar},
   booktitle={International Conference on 3D Vision (3DV)},
   year={2024}
 }
