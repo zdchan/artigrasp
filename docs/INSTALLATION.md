@@ -70,9 +70,9 @@ sudo ln -s /lib/x86_64-linux-gnu/libdl.so.2 /lib/x86_64-linux-gnu/libdl.so
 ```
 
 
-## DGrasp Environment Setup
+## ArtiGrasp Environment Setup
 
-The last part consists of installing the dgrasp environments.
+The last part consists of installing the artigrasp environments.
 
 Run the following to do so:
 
