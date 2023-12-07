@@ -17,7 +17,7 @@ $ mkdir raisim && cd raisim
 $ mkdir raisim_build
 ```
 
-Clone the dgrasp repository:
+Clone the artigrasp repository:
 
 ```
 $ git clone https://github.com/zdchan/artigrasp.git
