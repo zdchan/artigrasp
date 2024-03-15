@@ -177,7 +177,7 @@ else:
 
 saver = ConfigurationSaver(log_dir=exp_path + "/raisimGymTorch/" + args.storedir + "/" + task_name,
                            save_items=[task_path + "/cfgs/" + args.cfg, task_path + "/Environment.hpp",
-                                       task_path + "/runner.py", task_path + "/../../../helper/label_gen_new.py"], test_dir=test_dir)
+                                       task_path + "/runner.py", task_path + "/../../../helper/label_gen_final.py"], test_dir=test_dir)
 
 
 ppo_l = PPO.PPO(actor=actor_l,
