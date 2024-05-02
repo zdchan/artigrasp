@@ -91,6 +91,27 @@ We provide some pre-trained models to view the output of our method. They are st
   python raisimGymTorch/env/envs/composed_eval/ketchup_eval.py -obj '<obj_name>' -test (otherwise for training set)
   ```
 
+## Troubleshooting
+If you have error like 
+  ```Shell
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (3,) + inhomogeneous part.
+  ```
+try
+  ```Shell
+pip install numpy==1.23.1
+  ```
+
+If you have error like 
+  ```Shell
+"dump()" has been removed, use
+  yaml = YAML(typ='unsafe', pure=True)
+  yaml.dump(...)
+  ```
+try
+  ```Shell
+pip install ruamel.yaml==0.17.16
+  ```
+
 ## Citation
 
 To cite us, please use the following:
