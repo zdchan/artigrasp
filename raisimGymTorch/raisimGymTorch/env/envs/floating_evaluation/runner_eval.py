@@ -370,12 +370,20 @@ for update in range(len(label_list)):
             trans_r[step, :] = global_state[0, 6:9] - ref_r
             axis, angle = rotations.quat2axisangle(global_state[0, 9:13])
             rot_r[step, :] = axis * angle
-            pose_r[step, :] = global_state[0, 13:58] - pose_mean_r
+            # pose_r[step, :] = global_state[0, 13:58] - pose_mean_r
+            temp_pose = global_state[0, 13:58].reshape(15, 3)
+            for j in range(15):
+                pose_r[step, 3*j:3*j+3] = rotations.euler2axisangle(temp_pose[j].reshape(1,3))
+            pose_r[step, :] = pose_r[step, :] - pose_mean_r
 
             trans_l[step, :] = global_state[0, 58:61] - ref_l
             axis, angle = rotations.quat2axisangle(global_state[0, 61:65])
             rot_l[step, :] = axis * angle
-            pose_l[step, :] = global_state[0, 65:110] - pose_mean_l
+            # pose_l[step, :] = global_state[0, 65:110] - pose_mean_l
+            temp_pose = global_state[0, 65:110].reshape(15, 3)
+            for j in range(15):
+                pose_l[step, 3*j:3*j+3] = rotations.euler2axisangle(temp_pose[j].reshape(1,3))
+            pose_l[step, :] = pose_l[step, :] - pose_mean_l
 
             trans_obj[step, :] = global_state[0, 110:113]
             axis, angle = rotations.quat2axisangle(global_state[0, 113:117])
