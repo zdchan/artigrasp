@@ -11,8 +11,9 @@
 3. [Demo](#demo)
 4. [Training](#training)
 5. [Evaluation](#evaluation)
-6. [Citation](#citation)
-7. [License](#license)
+6. [Troubleshooting](#Troubleshooting)
+7. [Citation](#citation)
+8. [License](#license)
 
 ## Info
 
