@@ -83,6 +83,8 @@ $ python setup.py develop
 
 All the environments are run from this raisimGymTorch folder.
 
+Note that every time you change the environment.hpp, you need to run `python setup.py develop` again to build the environments.
+
 You should be all set now. Last thing to do is acquire an activation key for the simulator.
 
 ## Activation Key
