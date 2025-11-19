@@ -202,6 +202,11 @@ def approx_mano_collision(main_link, child, joints_dict, bounding_cylinder, mate
 
         finger_joint_child = get_child_finger_joint_name(child)
 
+        if finger_joint_child is None or finger_joint_child not in joints_dict:
+            # Some MANO models do not expose fingertip joints (e.g. "right_index").
+            # Skip collision generation for the missing tip to avoid KeyErrors.
+            return
+
         direction = joints_dict[finger_joint_child] - joints_dict[child]
         
         #  slightly shift the tip of finger position, since it is on top of the finger
@@ -419,7 +424,7 @@ def create_urdf_tree(hand_name, joints_dict, joint_mesh_data=None, pose_limits=N
                       parent_link_name=y_link_name, child_link_name=z_link_name,
                       limits=[pose_limit[0][2],pose_limit[1][2]])
 
-        if child[-1] == '3':
+        if child[-1] == '3' and child[:-1] in joints_dict:
             tip_link = add_link_element(root, f'{child[:-1]}_tip')
             add_inertial(tip_link, rpy=[0, 0, 0], xyz=[0, 0, 0], mass=0, 
                          inertia=[0, 0, 0, 0, 0, 0])

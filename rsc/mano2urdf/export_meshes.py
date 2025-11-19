@@ -62,9 +62,26 @@ def process_mesh_with_trimesh(verts, density, show=False):
     # get bounding cylinder data
     bounding_primitive = hull_mesh.bounding_cylinder  # .bounding_box_oriented.bounding_cylinder
     direction = bounding_primitive.direction
-    radius = bounding_primitive._kwargs['radius']
-    height = bounding_primitive._kwargs['height']
-    transform = bounding_primitive.primitive.transform
+    # newer trimesh versions expose radius/height directly on the primitive
+    # fall back to older attribute names or `_kwargs` if needed
+    primitive = getattr(bounding_primitive, 'primitive', None)
+
+    radius = getattr(bounding_primitive, 'radius', None)
+    if radius is None and primitive is not None:
+        radius = getattr(primitive, 'radius', None)
+    if radius is None:
+        radius = getattr(bounding_primitive, '_kwargs', {}).get('radius')
+    if radius is None:
+        raise AttributeError("bounding cylinder radius unavailable on primitive")
+
+    height = getattr(bounding_primitive, 'height', None)
+    if height is None and primitive is not None:
+        height = getattr(primitive, 'height', None)
+    if height is None:
+        height = getattr(bounding_primitive, '_kwargs', {}).get('height')
+    if height is None:
+        raise AttributeError("bounding cylinder height unavailable on primitive")
+    transform = np.array(bounding_primitive.primitive.transform, copy=True)
 
     # min_cylinder = trimesh.bounds.minimum_cylinder(hull_mesh, sample_count=10)
     # radius_, height_ = min_cylinder['radius'], min_cylinder['height']
@@ -172,8 +189,14 @@ def export_body_part_meshes(out_path, lbs_weight_matrix, vertices, joint_names,
             # n_faces = ms.current_mesh().face_matrix().shape[0]
             # ms.meshing_decimation_quadric_edge_collapse(targetfacenum=int(n_faces * decimation_factor))
 
-            ms = ms.simplify_quadratic_decimation(
-                face_count=ms.area_faces.size * decimation_factor_obj)
+            if isinstance(ms, MeshSet):
+                ms = ms.simplify_quadratic_decimation(
+                    face_count=ms.area_faces.size * decimation_factor_obj)
+            elif isinstance(ms, Trimesh) and hasattr(ms, 'simplify_quadratic_decimation'):
+                target_faces = int(ms.faces.shape[0] * decimation_factor_obj)
+                ms = ms.simplify_quadratic_decimation(target_faces)
+            else:
+                print("Decimation skipped: unsupported mesh type or missing method.")
 
         fname = name.lower() + '.obj'
         _save_mesh(ms, out_path, fname)

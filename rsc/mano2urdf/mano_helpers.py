@@ -4,6 +4,15 @@ import smplx
 from smplx.joint_names import JOINT_NAMES, SMPLH_JOINT_NAMES
 import numpy as np
 
+# Vertex indices for MANO fingertip locations (mirrors MANO_TIPS in raisimGymTorch/common/body_models.py)
+MANO_TIP_VERTS = {
+    'thumb': 744,
+    'index': 320,
+    'middle': 443,
+    'ring': 554,
+    'pinky': 671,
+}
+
 '''
 JOINT_LIMIT_FINGER_R = {'O': [[[-0.25000, 0.25000], 
                                [-0.8    , 0.8    ],
@@ -293,6 +302,11 @@ def get_mano_data(model_path, is_rhand=True, ncomps=24, v_template=None):
         joints_dict = dict(zip([SMPLH_JOINT_NAMES [21]] + SMPLH_JOINT_NAMES [37:52] + SMPLH_JOINT_NAMES [68:73], joints))
     else:
         joints_dict = dict(zip([SMPLH_JOINT_NAMES [20]] + SMPLH_JOINT_NAMES [22:37] + SMPLH_JOINT_NAMES [63:68], joints))
+
+    # MANO does not always expose fingertip joints (e.g., "right_index"), so synthesize them from mesh vertices.
+    tip_prefix = 'right_' if is_rhand else 'left_'
+    for finger_name, vert_idx in MANO_TIP_VERTS.items():
+        joints_dict[f'{tip_prefix}{finger_name}'] = verts[vert_idx]
 
     return lbs_weight_matrix, verts, joints_dict
 

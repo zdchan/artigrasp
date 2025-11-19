@@ -39,7 +39,7 @@ if __name__ == '__main__':
                                               decimation_factor_obj=0.5,
                                               is_rhand=is_rhand)
 
-    for idx, name in enumerate(joint_names):
+    # for idx, name in enumerate(joint_names):
 
 
 
